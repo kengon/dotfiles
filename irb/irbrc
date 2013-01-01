@@ -1,0 +1,59 @@
+# enable ri command
+# irb> ri String  # same as above
+# irb> String.ri 'reverse'
+# irb> ri 'File.new'
+def ri arg
+  puts `ri #{arg}`
+end
+
+class Module
+  def ri(meth=nil)
+    if meth
+      if instance_methods(false).include? meth.to_s
+        puts `ri #{self}##{meth}`
+      else
+        super
+      end
+    else
+      puts `ri #{self}`
+    end
+  end
+end
+
+# enable variable _ which store the past value
+IRB.conf[:EVAL_HISTORY] = 1000
+IRB.conf[:SAVE_HISTORY] = 100
+
+# enable history
+HISTFILE = "~/.irb.hist"
+MAXHISTSIZE = 100
+
+begin
+  if defined? Readline::HISTORY
+    histfile = File::expand_path(HISTFILE)
+    if File::exists?( histfile )
+      lines = IO::readlines( histfile ).collect {|line| line.chomp}
+      puts "Read %d saved history commands from %s." %
+        [ lines.nitems, histfile ] if $DEBUG || $VERBOSE
+      Readline::HISTORY.push( *lines )
+    else
+      puts "History file '%s' was empty or non-existant." %
+        histfile if $DEBUG || $VERBOSE
+    end
+
+    Kernel::at_exit {
+      lines = Readline::HISTORY.to_a.reverse.uniq.reverse
+      lines = lines[ -MAXHISTSIZE, MAXHISTSIZE ] if lines.nitems > MAXHISTSIZE
+      $stderr.puts "Saving %d history lines to %s." %
+
+        [ lines.length, histfile ] if $VERBOSE || $DEBUG
+      File::open( histfile, File::WRONLY|File::CREAT|File::TRUNC ) {|ofh|
+        lines.each {|line| ofh.puts line }
+      }
+    }
+  end
+end
+
+# enable completion
+require 'irb/completion'
+ARGV.concat [ "--readline", "--prompt-mode", "simple" ]

@@ -1,0 +1,5 @@
+alias ls='ls  -F -G'
+alias ll='ls  -F -G -l'
+alias vi='vim'
+alias rm='rm -i'
+alias view='vim -R'
