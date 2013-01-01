@@ -1,7 +1,3 @@
-" TODO 日本語コメントを英語にする
-" TODO ファイルエンコードをUTF-8にする　日本語をなくせればそれでもよい
-" TODO vim bundleはひとまず後でよいか
-
 function! GetStatusEx()
   let str = ''
   let str = str . '' . &fileformat . ']'
@@ -15,11 +11,11 @@ function! s:get_iconv_encodings()
   let l:enc_euc = 'euc-jp'
   let l:enc_jis = 'iso-2022-jp'
 
-  " iconvがeucJP-msに対応しているかをチェック
+  " check whether iconv supports eucJP-ms
   if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
     let l:enc_euc = 'eucjp-ms'
     let l:enc_jis = 'iso-2022-jp-3'
-    " iconvがJISX0213に対応しているかをチェック
+  " check whether iconv supports JISX0213
   elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
     let l:enc_euc = 'euc-jisx0213'
     let l:enc_jis = 'iso-2022-jp-3'
@@ -96,7 +92,7 @@ let &encoding = s:encset['encoding']
 let &fileencoding = s:encset['fileencoding']
 let &fileencodings = s:encset['fileencodings']
 
-" 日本語を含まない場合は fileencoding に encoding を使うようにする
+" use encoding as fileencoding if there are no japanese
 if has('autocmd')
   function!  AU_ReCheck_FENC()
     if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
