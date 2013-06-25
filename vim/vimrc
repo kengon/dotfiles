@@ -130,3 +130,9 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
   \| exe "normal g'\"" | endif
 endif
+
+" for vundle
+set rtp+=~/.vim/vundle.git/
+call vundle#rc('~/.vim/vundle.git')
+Bundle 'vim-perl/vim-perl'
+Bundle 'hotchpotch/perldoc-vim'
