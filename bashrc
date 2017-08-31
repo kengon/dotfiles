@@ -114,8 +114,8 @@ if ! shopt -oq posix; then
 fi
 
 # User specific aliases and functions
-export GIT_COMMITTER_NAME='Sakai Kengo'
-export GIT_AUTHOR_NAME='Sakai Kengo'
+export GIT_COMMITTER_NAME='Kengo Sakai'
+export GIT_AUTHOR_NAME='Kengo Sakai'
 export EMAIL='sakaikengo@gmail.com'
 export EDITOR=vim
 
