@@ -1,6 +1,6 @@
 escape t
 startup_message off
-shell zsh
+# shell zsh
 hardstatus alwayslastline "[%02c] %`%-w%{=b bw}%n %t%{-}%+w"
 defscrollback 3000
 bind r eval 'echo "Resize window"' 'command -c resize'
