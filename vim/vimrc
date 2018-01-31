@@ -132,7 +132,16 @@ if has("autocmd")
 endif
 
 " for vundle
-set rtp+=~/.vim/vundle.git/
-call vundle#rc('~/.vim/vundle.git')
-Bundle 'vim-perl/vim-perl'
-Bundle 'hotchpotch/perldoc-vim'
+" set rtp+=~/.vim/vundle.git/
+" call vundle#rc('~/.vim/vundle.git')
+" Bundle 'vim-perl/vim-perl'
+" Bundle 'hotchpotch/perldoc-vim'
+
+" for gnu global
+let g:Gtags_Auto_Map = 1
+map <C-g> :Gtags
+map <C-h> :Gtags -f %<CR>
+map <C-j> :GtagsCursor<CR>
+map <C-]> :GtagsCursor<CR>
+map <C-n> :cn<CR>
+map <C-p> :cp<CR>
